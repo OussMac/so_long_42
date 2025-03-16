@@ -6,7 +6,7 @@
 /*   By: oimzilen <oimzilen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 01:41:07 by oimzilen          #+#    #+#             */
-/*   Updated: 2025/03/14 22:42:03 by oimzilen         ###   ########.fr       */
+/*   Updated: 2025/03/16 01:41:12 by oimzilen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,6 @@ void	fill(char **grid, t_pos p, t_parse *prs)
 		return ;
 	if (grid[p.y][p.x] == '1' || grid[p.y][p.x] == 'V' || grid[p.y][p.x] == 'Z')
 		return ;
-	if (grid[p.y][p.x] == 'C')
-		prs->found_c++;
 	if (grid[p.y][p.x] == 'E')
 	{
 		prs->door_x = p.x;
@@ -69,10 +67,13 @@ void	fill(char **grid, t_pos p, t_parse *prs)
 
 void	flood_fill(char **grid, t_pos player, t_parse *parse, int fd)
 {
+	char	**coll_grid;
 	bool	error;
 
 	error = false;
+	coll_grid = grid_dup(grid, parse);
 	fill(grid, player, parse);
+	coll(coll_grid, player, parse);
 	if (parse->found_c != parse->c_count)
 		error = true;
 	if (parse->found_e != parse->e_count)
@@ -81,9 +82,13 @@ void	flood_fill(char **grid, t_pos player, t_parse *parse, int fd)
 	{
 		print_error(PATH_BLOCKED);
 		close(fd);
+		free_grid(coll_grid);
 		free_grid(grid);
 		exit(EXIT_FAILURE);
 	}
+	free_grid(coll_grid);
+	free_grid(grid);
+	close(fd);
 }
 
 void	parse_path(char *map_name, t_parse *parse)
@@ -99,6 +104,4 @@ void	parse_path(char *map_name, t_parse *parse)
 	}
 	grid = create_2d_grid(fd, parse);
 	flood_fill(grid, (t_pos){parse->player_x, parse->player_y}, parse, fd);
-	free_grid(grid);
-	close(fd);
 }

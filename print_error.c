@@ -6,7 +6,7 @@
 /*   By: oimzilen <oimzilen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 01:36:05 by oimzilen          #+#    #+#             */
-/*   Updated: 2025/03/14 01:40:03 by oimzilen         ###   ########.fr       */
+/*   Updated: 2025/03/16 01:49:00 by oimzilen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,6 @@ void	print_error(int error)
 		ft_putstr_fd("Player Path Blocked.\n", STDERR_FILENO);
 	else if (error == IMAGE)
 		ft_putstr_fd("Invalid Texture.\n", STDERR_FILENO);
+	else if (error == BIG_MAP)
+		ft_putstr_fd("Map Is Way Too Big.\n", STDERR_FILENO);
 }

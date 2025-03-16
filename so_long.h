@@ -6,7 +6,7 @@
 /*   By: oimzilen <oimzilen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 01:24:56 by oimzilen          #+#    #+#             */
-/*   Updated: 2025/03/15 03:24:05 by oimzilen         ###   ########.fr       */
+/*   Updated: 2025/03/16 01:31:12 by oimzilen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # define MALLOC_F 9
 # define PATH_BLOCKED 10
 # define IMAGE 11
+# define BIG_MAP 12
 
 # define PIXELS 96
 # define TITLE "ESCAPE MINECRAFT"
@@ -127,6 +128,8 @@ void	params_check(t_parse *parse);
 char	*cut_row(char *row_uncut);
 
 void	parse_path(char *map_name, t_parse *parse);
+char	**grid_dup(char **grid, t_parse *parse);
+void	coll(char **grid, t_pos p, t_parse *prs);
 
 void	load_game(char *map_name, t_parse *parse, int fd);
 char	**create_2d_grid(int fd, t_parse *parse);

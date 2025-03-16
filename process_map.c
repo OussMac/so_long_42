@@ -6,7 +6,7 @@
 /*   By: oimzilen <oimzilen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 01:35:04 by oimzilen          #+#    #+#             */
-/*   Updated: 2025/03/14 01:35:15 by oimzilen         ###   ########.fr       */
+/*   Updated: 2025/03/16 01:04:38 by oimzilen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,11 @@ void	primary_parse(char *map_name, t_parse *parse, int fd)
 	}
 	get_max_x_y(fd, parse);
 	close(fd);
+	if (parse->y_max > 21 || parse->x_max > 40)
+	{
+		print_error(BIG_MAP);
+		exit(EXIT_FAILURE);
+	}
 	fd = open(map_name, O_RDONLY);
 	if (fd == -1)
 	{
